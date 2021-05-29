@@ -3,8 +3,19 @@ plugins {
     id("net.ltgt.apt-eclipse")
     id("net.ltgt.apt-idea")
 }
-
+tasks.withType<JavaCompile> {
+    options.encoding = "UTF-8"
+}
 applyPlatformAndCoreConfiguration()
+applyShadowConfiguration()
+tasks.withType<Test> {
+    systemProperty("file.encoding", "UTF-8")
+}
+
+tasks.withType<Javadoc>{
+    options.encoding = "UTF-8"
+}
+
 
 dependencies {
     "api"(project(":worldguard-libs:core"))

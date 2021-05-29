@@ -1,14 +1,15 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.gradle.api.internal.HasConvention
-
+tasks.withType<Javadoc>{
+    options.encoding = "UTF-8"
+}
+applyPlatformAndCoreConfiguration()
+applyShadowConfiguration()
 plugins {
     id("java-library")
     id("net.ltgt.apt-eclipse")
     id("net.ltgt.apt-idea")
 }
-
-applyPlatformAndCoreConfiguration()
-applyShadowConfiguration()
 
 repositories {
     maven {

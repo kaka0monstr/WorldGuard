@@ -72,8 +72,8 @@ public class MemberCommands extends RegionCommandsBase {
         final String description = String.format("Adding members to the region '%s' on '%s'", region.getId(), world.getName());
         AsyncCommandBuilder.wrap(resolver, sender)
                 .registerWithSupervisor(worldGuard.getSupervisor(), description)
-                .onSuccess(String.format("Region '%s' updated with new members.", region.getId()), region.getMembers()::addAll)
-                .onFailure("Failed to add new members", worldGuard.getExceptionConverter())
+                .onSuccess(String.format("В регион %s были добавлены новые участники!", region.getId()), region.getMembers()::addAll)
+                .onFailure("Ошибка добавления участников!", worldGuard.getExceptionConverter())
                 .buildAndExec(worldGuard.getExecutorService());
     }
 
@@ -106,8 +106,8 @@ public class MemberCommands extends RegionCommandsBase {
         final String description = String.format("Adding owners to the region '%s' on '%s'", region.getId(), world.getName());
         AsyncCommandBuilder.wrap(checkedAddOwners(sender, manager, region, world, resolver), sender)
                 .registerWithSupervisor(worldGuard.getSupervisor(), description)
-                .onSuccess(String.format("Region '%s' updated with new owners.", region.getId()), region.getOwners()::addAll)
-                .onFailure("Failed to add new owners", worldGuard.getExceptionConverter())
+                .onSuccess(String.format("В регион %s были добавлены новые владельцы!", region.getId()), region.getOwners()::addAll)
+                .onFailure("Ошибка при добавлении владельцев", worldGuard.getExceptionConverter())
                 .buildAndExec(worldGuard.getExecutorService());
     }
 
@@ -182,7 +182,7 @@ public class MemberCommands extends RegionCommandsBase {
         AsyncCommandBuilder.wrap(callable, sender)
                 .registerWithSupervisor(worldGuard.getSupervisor(), description)
                 .sendMessageAfterDelay("(Please wait... querying player names...)")
-                .onSuccess(String.format("Region '%s' updated with members removed.", region.getId()), region.getMembers()::removeAll)
+                .onSuccess(String.format("В регионе %s был убран участник!", region.getId()), region.getMembers()::removeAll)
                 .onFailure("Failed to remove members", worldGuard.getExceptionConverter())
                 .buildAndExec(worldGuard.getExecutorService());
     }
@@ -225,7 +225,7 @@ public class MemberCommands extends RegionCommandsBase {
         AsyncCommandBuilder.wrap(callable, sender)
                 .registerWithSupervisor(worldGuard.getSupervisor(), description)
                 .sendMessageAfterDelay("(Please wait... querying player names...)")
-                .onSuccess(String.format("Region '%s' updated with owners removed.", region.getId()), region.getOwners()::removeAll)
+                .onSuccess(String.format("В регионе %s был убран владелец!", region.getId()), region.getOwners()::removeAll)
                 .onFailure("Failed to remove owners", worldGuard.getExceptionConverter())
                 .buildAndExec(worldGuard.getExecutorService());
     }

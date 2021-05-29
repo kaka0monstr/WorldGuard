@@ -127,7 +127,7 @@ class RegionCommandsBase {
                     "The region name of '" + id + "' contains characters that are not allowed.");
         }
 
-        if (!allowGlobal && id.equalsIgnoreCase("__global__")) { // Sorry, no global
+        if (!allowGlobal && id.equalsIgnoreCase("__global__")) { // §9•§f, no global
             throw new CommandException(
                     "Sorry, you can't use __global__ here.");
         }
@@ -205,8 +205,6 @@ class RegionCommandsBase {
         if (set.size() == 0) {
             if (allowGlobal) {
                 ProtectedRegion global = checkExistingRegion(regionManager, "__global__", true);
-                player.printDebug("You're not standing in any " +
-                        "regions. Using the global region for this world instead.");
                 return global;
             }
             throw new CommandException(
@@ -216,21 +214,21 @@ class RegionCommandsBase {
             boolean first = true;
 
             final TextComponent.Builder builder = TextComponent.builder("");
-            builder.append(TextComponent.of("Current regions: ", TextColor.GOLD));
+            builder.append(TextComponent.of("Регионы: ", TextColor.WHITE));
             for (ProtectedRegion region : set) {
                 if (!first) {
                     builder.append(TextComponent.of(", "));
                 }
                 first = false;
-                TextComponent regionComp = TextComponent.of(region.getId(), TextColor.AQUA);
+                TextComponent regionComp = TextComponent.of(region.getId(), TextColor.GRAY);
                 if (rgCmd != null && rgCmd.contains("%id%")) {
-                    regionComp = regionComp.hoverEvent(HoverEvent.of(HoverEvent.Action.SHOW_TEXT, TextComponent.of("Click to pick this region")))
+                    regionComp = regionComp.hoverEvent(HoverEvent.of(HoverEvent.Action.SHOW_TEXT, TextComponent.of("Нажми чтобы выбрать")))
                             .clickEvent(ClickEvent.of(ClickEvent.Action.RUN_COMMAND, rgCmd.replace("%id%", region.getId())));
                 }
                 builder.append(regionComp);
             }
             player.print(builder.build());
-            throw new CommandException("Several regions affect your current location (please pick one).");
+            throw new CommandException("Тут несколько регионов: Выбери один из них");
         }
 
         return set.iterator().next();
@@ -252,9 +250,7 @@ class RegionCommandsBase {
             }
             return localSession.getRegionSelector(localSession.getSelectionWorld()).getRegion();
         } catch (IncompleteRegionException e) {
-            throw new CommandException("Please select an area first. " +
-                    "Use WorldEdit to make a selection! " +
-                    "(see: https://worldedit.enginehub.org/en/latest/usage/regions/selections/).");
+            throw new CommandException("Вы не выделили территорию!");
         }
     }
 

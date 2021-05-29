@@ -2,7 +2,6 @@ plugins {
     `kotlin-dsl`
     kotlin("jvm") version embeddedKotlinVersion
 }
-
 repositories {
     jcenter()
     gradlePluginPortal()

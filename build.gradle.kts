@@ -1,5 +1,4 @@
 import org.ajoberstar.grgit.Grgit
-
 logger.lifecycle("""
 *******************************************
  You are building WorldGuard!

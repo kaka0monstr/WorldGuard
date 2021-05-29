@@ -28,15 +28,12 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 public class RegionReport extends DataReport {
 
     public RegionReport(ProtectedRegion region) {
-        super("Region: " + region.getId());
+        super("Регион: " + region.getId());
 
-        append("Type", region.getType());
-        append("Priority", region.getPriority());
-        append("Parent", region.getParent() == null ? "<none>" : region.getParent().getId());
-        append("Owners", region.getOwners());
-        append("Members", region.getMembers());
-        append("Flags", region.getFlags());
-        append("Bounds", region.getMinimumPoint() + " -> " + region.getMaximumPoint());
+        append("Владельцы: ", region.getOwners());
+        append("Участники: ", region.getMembers());
+        append("Флаги: ", region.getFlags());
+        append("Координаты: ", region.getMinimumPoint() + " ⇾ " + region.getMaximumPoint());
     }
 
 }
